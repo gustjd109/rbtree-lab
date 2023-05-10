@@ -23,14 +23,26 @@ typedef struct {
 } rbtree;
 
 rbtree *new_rbtree(void);
-void delete_rbtree(rbtree *);
 
-node_t *rbtree_insert(rbtree *, const key_t);
-node_t *rbtree_find(const rbtree *, const key_t);
-node_t *rbtree_min(const rbtree *);
-node_t *rbtree_max(const rbtree *);
-int rbtree_erase(rbtree *, node_t *);
+void delete_rbtree(rbtree *t);
+void  delete_node(rbtree *t, node_t *node);
 
-int rbtree_to_array(const rbtree *, key_t *, const size_t);
+void left_rotate(rbtree *t, node_t *x);
+void right_rotate(rbtree *t, node_t *x);
+
+node_t *rbtree_insert(rbtree *t, const key_t key);
+void rbtree_insert_fixup(rbtree *t, node_t *node);
+
+void rbtree_transplant(rbtree *t, node_t *u, node_t *v);
+
+int rbtree_erase(rbtree *t, node_t *p);
+void rbtree_erase_fixup(rbtree *t, node_t *x);
+
+node_t *rbtree_find(const rbtree *t, const key_t key);
+node_t *rbtree_min(const rbtree *t);
+node_t *rbtree_max(const rbtree *t);
+
+int rbtree_to_array(const rbtree *t, key_t *arr, const size_t n);
+void rbtree_inorder(const rbtree *t, node_t *current, key_t *arr, int *arr_idx);
 
 #endif  // _RBTREE_H_
